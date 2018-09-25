@@ -1,0 +1,62 @@
+{% extends "test.html" %}
+{% load static %}
+{% block title %}F-Blog 注册{% endblock %}
+{% block css %}<link href="{% static 'css/register.css' %}" rel="stylesheet"/>{% endblock %}
+
+
+{% block content %}
+    <!-- 头部大图 -->
+    <header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url({% static 'img/img_2.jpg' %});" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" style="margin-top:160px;padding:40px;background-color: rgba(255,255,255,0.8);border-radius:0">
+            <form class='form-register' action="{% url 'userapp:register' %}" method="post">
+
+                {% if text %}
+                  <div class="alert alert-warning">{{text}}</div>
+                {% endif %}
+
+                {% csrf_token %}
+                <h4 class="text-center">欢迎注册</h4>
+                
+                <div class="form-group">
+{#                  {{ register_form.username.label_tag }}#}
+                  {{ register_form.username}}
+                </div>
+                <div class="form-group">
+{#                  {{ register_form.password.label_tag }}#}
+                  {{ register_form.password }}
+                </div>
+                <div class="form-group">
+{#                  {{ register_form.re_password.label_tag }}#}
+                  {{ register_form.re_password }}
+                </div>
+                <div class="form-group">
+{#                  {{ register_form.email.label_tag }}#}
+                  {{ register_form.email }}
+                </div>
+                <div class="form-group">
+{#                  {{ register_form.phoneNO.label_tag }}#}
+                  {{ register_form.phoneNO }}
+                </div>
+                <div class="form-group">
+{#                  {{ register_form.sex.label_tag }}#}
+                  {{ register_form.sex }}
+                </div>
+                <div class="form-group">
+                  {{ register_form.captcha.errors }}
+                  {{ register_form.captcha.label_tag }}
+                  {{ register_form.captcha }}
+                </div>
+                <br>
+
+                <button type="reset" class="btn btn-default btn-wide pull-left">重置</button>
+                <button type="submit" class="btn btn-primary btn-wide pull-right">提交</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </header>
+
+{% endblock %}

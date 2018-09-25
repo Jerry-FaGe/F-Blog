@@ -1,0 +1,188 @@
+{% extends 'test.html' %}
+{% block title %}{{ blog.title }}{% endblock %}
+{% load static %}
+{% block content %}
+
+<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url({% static 'img/img_3.jpg' %});" data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7 text-left">
+				<div class="display-t">
+					<div class="display-tc animate-box" data-animate-effect="fadeInUp">
+						<span class="date-post">{{ blog.created_time|date:"Y-m-d H:i:s" }}</span>
+						<h1 class="mb30"><a href="#">{{ blog.title }}</a></h1>
+						<p>by <a href="#" class="text-link">{{ blog.author }}</a></p>
+						<p>type <a href="{% url 'blog:blogs_with_type' blog.blog_type.id %}" class="text-link">{{ blog.blog_type }}</a></p>
+						<p>read <a href="#" class="text-link">{{ blog.get_read_num }}</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div id="gtco-maine">
+	<div class="container">
+		<div class="row row-pb-md">
+			<div class="col-md-12">
+				<article class="mt-negative">
+					<div class="text-left content-article">
+						<div class="text-left content-article">
+							<div class="row">
+								<div class="col-lg-8 cp-r animate-box">
+									<h2>{{ blog.title }}</h2>
+									<p>{{ blog.content|safe }}</p>
+								</div>
+								<div class="col-lg-4 animate-box">
+									<div class="gtco-highlight right">
+										<h4>借我吉言</h4>
+										<p>懒是人类进步的阶梯<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--发哥</p>
+									</div>
+								</div>
+							</div>
+							<div class="row row-pb-sm">
+								<div class="col-md-12 animate-box">
+									<blockquote>
+										<p>&ldquo;She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove &rdquo; <cite>&mdash; Jean Smith</cite></p>
+									</blockquote>
+								</div>
+							</div>
+                        </div>
+					</div>
+				</article>
+
+				<!-- 上下篇 -->
+		        <div>
+		            <p>上一篇：
+		                {% if previous_blog %}
+		                    <a href="{% url 'blog:blog_detail' previous_blog.id %}">{{ previous_blog.title }}</a>
+		                {% else %}
+		                    没有了
+		                {% endif %}
+		            </p>
+		            <p>下一篇：
+		                {% if next_blog %}
+		                    <a href="{% url 'blog:blog_detail' next_blog.id %}">{{ next_blog.title }}</a>
+		                {% else %}
+		                    没有了
+		                {% endif %}
+		            </p>
+		        </div>
+
+		        <!-- 换页按钮 -->
+		        <nav aria-label="...">
+                    <ul class="pager">
+                        {% if previous_blog %}
+                            <li class="previous"><a href="{% url 'blog:blog_detail' previous_blog.id %}"><span aria-hidden="true">&larr;</span> {{ previous_blog.title }}</a></li>
+                        {% else %}
+                            <li class="previous disabled"><a>没有了</a></li>
+                        {% endif %}
+                        {% if next_blog %}
+                            <li class="next"><a href="{% url 'blog:blog_detail' next_blog.id %}">{{ next_blog.title }}<span aria-hidden="true">&rarr;</span> </a></li>
+                        {% else %}
+                            <li class="next disabled"><a>没有了</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+			</div>
+		</div>
+        <!--评论-->
+        <h3>评论列表</h3>
+        {% if comments %}
+            {% for comment in comments %}
+                <li class="full entry animate-box" data-animate-effect="fadeIn" style="margin-bottom: 20px">
+                    <div class="entry-desc">
+{#                            <!--评论人-->#}
+{#                            <div>{{ comment.comment_user }}：</div>#}
+{#                            <!--评论内容-->#}
+{#                            <div class="col-sm-11 col-sm-offset-1">{{ comment.text }}</div>#}
+{#                            <!--评论时间-->#}
+{#                            <div style="float: right">（{{ comment.comment_time|date:"Y-m-d" }}）</div>#}
+
+                            <div style="border: rgb(230,230,230) 1px solid;padding: 20px">
+                                <!--评论人-->
+                                <div style="margin-bottom: 5px">{{ comment.comment_user }}：</div>
+
+                                <!--评论内容-->
+                                <div style="background-color: rgba(247,247,247,0.89);padding: 10px;border-radius: 2px;margin-bottom: 5px;">{{ comment.text }}</div>
+                                <!--评论时间-->
+                                <div style="text-align: right">{{ comment.comment_time|date:"Y-m-d H:i:s" }}</div>
+                            </div>
+
+
+                    </div>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li class="full entry animate-box" data-animate-effect="fadeIn" style="margin-bottom: 20px">
+                <div class="entry-desc">
+                    暂无评论
+                </div>
+            </li>
+        {% endif %}
+
+        <h3>提交评论</h3>
+        <!--写评论的from表单-->
+        <li class="full entry animate-box" data-animate-effect="fadeIn" style="margin-bottom: 20px">
+            <div class="entry-desc">
+                <form action="{% url 'comment:update_comment' %}" name="myform" method="post" onSubmit="return checklogin()">
+                    {% csrf_token %}
+                    {% if user == "AnonymousUser" %}
+                        <textarea class="form-control" rows="3" name="text" id="comment_text" placeholder="您还未登录，不能评论~~~"></textarea>
+                    {% else %}
+                        <textarea class="form-control" rows="3" name="text" id="comment_text" placeholder="{{ user }}，欢迎评论~~~"></textarea>
+                    {% endif %}
+                    <!--hidden用于隐藏回传的本篇博客的id-->
+                    <input type="hidden" name="title" value="{{ blog.id }}" id="comment_blog">
+                    <!--hidden用于隐藏回传的评论人name-->
+                    <input type="hidden" name="user" value="{{ user }}">
+                    <input id="bbb" class = "btn btn-embossed btn-primary " style="margin: 10px auto;float:right" type="submit" value="评论" name="sub_1">
+                </form>
+            </div>
+        </li>
+
+		<!-- 相关 -->
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="related-title animate-box">随机推荐</h2>
+			</div>
+		</div>
+		<div class="row row-pb-md">
+			<div class="col-md-12">
+				<ul id="gtco-post-list">
+                    {% for blog in rand_blogs_object %}
+                        <li class="one-third animate-box entry" data-animate-effect="fadeIn">
+                            <a href="{% url 'blog:blog_detail' blog.id %}">
+                                <div class="entry-img" style="background-image: url(/static/img/img_{{ forloop.counter }}.jpg)"></div>
+                                <div class="entry-desc">
+                                    <h3>{{ blog.title }}</h3>
+                                    <p>{{ blog.content|truncatechars:50|striptags }}</p>
+                                </div>
+                            </a>
+                            <a href="{% url 'blog:blogs_with_type' blog.blog_type_id %}" class="post-meta">{{ blog.blog_type }}<span class="date-posted">{{ blog.last_updated_time }}</span></a>
+                        </li>
+                    {% endfor %}
+
+				</ul>	
+			</div>
+		</div>
+	</div>
+</div>
+    <script language="javascript">
+        function checklogin() {
+            if((myform.user.value != "AnonymousUser")) {
+                if((myform.text.value.replace(/(^\s*)|(\s*$)/g,"") != "")) {
+                    return true
+                } else {
+                    alert("评论内容不能为空");
+                    return false
+                }
+            } else {
+                alert("请先登录");
+                return false
+            }
+        }
+    </script>
+
+{% endblock %}

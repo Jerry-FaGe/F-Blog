@@ -1,0 +1,419 @@
+<!DOCTYPE HTML>
+<!--
+	Justice by gettemplates.co
+	Twitter: http://twitter.com/gettemplateco
+	URL: #
+-->
+<html xmlns="http://www.w3.org/1999/html">
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- <title>PiliPili &mdash; 瞎写的破博客</title> -->
+	<title>{% block title %}F-Blog{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Website Template by GetTemplates.co" />
+	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+	<meta name="author" content="GetTemplates.co" />
+	{% load static %}
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i|Roboto+Mono" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+
+	<!-- Modernizr JS -->
+	<script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+    {% block header_extends %}{% endblock %}
+
+	</head>
+	<body>
+	<div class="gtco-loader"></div>
+	<!-- 导航栏 -->
+	<div id="page">
+	<nav class="gtco-nav" role="navigation">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-2 text-left">
+					<div id="gtco-logo"><a href="{% url 'blog:blog_list' %}">FBlog<span>.</span></a></div>
+				</div>
+				<div class="col-xs-10 text-right menu-1">
+					<ul>
+                        <li><a href="{% url 'blog:blog_list' %}">主页</a></li>
+						<li class="has-dropdown">
+							<a href="#">更多</a>
+							<ul class="dropdown">
+								<li><a href="#">敬请期待</a></li>
+								<li><a href="#">敬请期待</a></li>
+								<li><a href="#">敬请期待</a></li>
+							</ul>
+						</li>
+
+						{% if request.session.is_login %}
+		                    <li><a tabindex="0" role="button" data-toggle="popover" data-placement="bottom" data-trigger="focus" title="你好呀{{ request.session.user_name }}" data-content="这是一个菜鸡网页，这些字都是我写出来凑字数的，因为我不知道写啥了哈哈哈哈哈哈哈">当前在线：{{ request.session.user_name }}</a> </li>
+		                    <li><a href="{% url 'userapp:logout' %}">登出</a> </li>
+		                {% else %}
+		                    <li><a href="{% url 'userapp:login' %}">登录</a></li>
+		                    <li><a href="{% url 'userapp:register' %}">注册</a></li>
+		                {% endif %}
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</nav>
+	
+	<!-- 巨型轮播图 -->
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="carousel slide" id="carousel-29666" data-ride="carousel" data-interval="3000">
+                <ol class="carousel-indicators">
+                    <li data-slide-to="0" data-target="#carousel-29666" class="active">
+                    </li>
+                    <li data-slide-to="1" data-target="#carousel-29666">
+                    </li>
+                    <li data-slide-to="2" data-target="#carousel-29666">
+                    </li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item  active">
+                        <img alt="" src="{% static 'img/tang_6.jpg' %}"/>
+                        <div class="carousel-caption">
+                            <h3 style="color: #fff">
+                                这是第一页
+                            </h3>
+                            <p>
+                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                            </p>
+                            <a href="{% url 'userapp:login' %}">
+                                <button href="/login/" class ="btn btn-hg btn-primary" style="background-color: rgba(52,73,94,0.65);border: 0;">登录啊</button>
+                            </a>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img alt="" src="{% static 'img/tang_7.jpg' %}"/>
+                        <div class="carousel-caption">
+                            <h3  style="color: #fff">
+                                这是第二张
+                            </h3>
+                            <p>
+                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                            </p>
+                            <a href="{% url 'userapp:login' %}">
+                                <button href="/login/" class ="btn btn-hg btn-primary" style="background-color: rgba(52,73,94,0.65);border: 0;">登录啊</button>
+                            </a>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img alt="" src="{% static 'img/tang_9.jpg' %}"/>
+                        <div class="carousel-caption">
+                            <h3  style="color: #fff">
+                                这是第三页
+                            </h3>
+                            <p>
+                                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi
+                                porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                            </p>
+                            <a href="{% url 'userapp:login' %}">
+                                <button href="/login/" class ="btn btn-hg btn-primary" style="background-color: rgba(52,73,94,0.65);border: 0;">登录啊</button>
+                            </a>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-29666" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-29666" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="gtco-main">
+		<div class="container">
+			<!-- 遍历显示主体 -->
+			<div class="row row-pb-md">
+				<div class="col-md-12">
+					<div class="page-header" style="text-align: center">
+		                <h1>这有什么<small></small></h1>
+		            </div>
+					<ul id="gtco-post-list">
+						<li class="one-third entry animate-box" data-animate-effect="fadeIn">
+							<a href="{% url 'userapp:login' %}">
+								<div class="entry-img" style="background-image: url({% static 'img/oumei9.jpeg' %})"></div>
+								<div class="entry-desc">
+									<h3>九旬老太为何裸死街头？</h3>
+									<p>女生宿舍内衣为何频频失窃？连环强歼母猪案，究竟是何人所为？老尼姑的门夜夜被敲，究竟是人是鬼？数百只小母狗意外身亡的背后又隐藏着那些不为人知的秘密？这一切的背后，是人性的扭曲还是道德的沦丧？是性的爆发还是饥渴的无奈？敬请关注今晚23点59分CCAV5年度巨献《xx的不归之路》</p>
+								</div>
+							</a>
+							<a href="{% url 'userapp:login' %}" class="post-meta">Login  <span class="date-posted">To get more</span></a>
+						</li>
+						<li class="one-third entry animate-box" data-animate-effect="fadeIn">
+							<a href="{% url 'userapp:login' %}">
+								<div class="entry-img" style="background-image: url({% static 'img/oumei8.jpg' %})"></div>
+								<div class="entry-desc">
+									<h3>数百头母驴为何半夜惨叫？</h3>
+									<p>女生宿舍内衣为何频频失窃？连环强歼母猪案，究竟是何人所为？老尼姑的门夜夜被敲，究竟是人是鬼？数百只小母狗意外身亡的背后又隐藏着那些不为人知的秘密？这一切的背后，是人性的扭曲还是道德的沦丧？是性的爆发还是饥渴的无奈？敬请关注今晚23点59分CCAV5年度巨献《xx的不归之路》</p>
+								</div>
+							</a>
+							<a href="{% url 'userapp:login' %}" class="post-meta">Login  <span class="date-posted">to get more</span></a>
+						</li>
+						<li class="one-third entry animate-box" data-animate-effect="fadeIn">
+							<a href="{% url 'userapp:login' %}">
+								<div class="entry-img" style="background-image: url({% static 'img/oumei3.jpg' %})"></div>
+								<div class="entry-desc">
+									<h3>小卖部保险套为何屡遭黑手？</h3>
+									<p>女生宿舍内衣为何频频失窃？连环强歼母猪案，究竟是何人所为？老尼姑的门夜夜被敲，究竟是人是鬼？数百只小母狗意外身亡的背后又隐藏着那些不为人知的秘密？这一切的背后，是人性的扭曲还是道德的沦丧？是性的爆发还是饥渴的无奈？敬请关注今晚23点59分CCAV5年度巨献《xx的不归之路》</p>
+								</div>
+							</a>
+							<a href="{% url 'userapp:login' %}" class="post-meta">Login  <span class="date-posted">to get more</span></a>
+						</li>						
+					</ul>
+
+					<div class="page-header" style="text-align: center">
+		                <h1>近七天点击量<small></small></h1>
+		            </div>
+
+					<ul id="gtco-post-list">
+						<li class="full entry animate-box" data-animate-effect="fadeIn">
+							<!-- 折线图 -->
+				            <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+                            <!-- 需要保存导出功能模块文件是在 highcharts.js 之后引入 -->
+                            <script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
+
+                            <!-- 客户端导出功能模块为可选选项 -->
+                            <script src="http://cdn.hcharts.cn/highcharts/modules/offline-exporting.js"></script>
+				            <!-- 图表容器 DOM -->
+				            <div id="container"></div>
+				            <script>
+                                Highcharts.setOptions({
+                                        lang:{
+                                            contextButtonTitle: "图表导出菜单",
+                                            downloadJPEG:"下载 JPEG 图片",
+                                            downloadPDF:"下载 PDF 文件",
+                                            downloadPNG:"下载 PNG 文件",
+                                            downloadSVG:"下载 SVG 文件",
+                                            printChart:"打印图表"
+                                        }
+                                    });
+				                // 图表配置
+				                var options = {
+				                    chart: { type: 'line' },
+				                    title: { text: null },
+				                    xAxis: {
+				                        categories: {{ dates|safe }},   // x 轴分类
+				                        tickmarkPlacement: 'on',
+				                    },
+				                    yAxis: {
+				                        title: { text: null },
+				                        labels:{ enabled: false },
+				                        gridLineDashStyle: 'Dash',
+				                    },
+				                    series: [{                              // 数据列
+				                        name: '阅读量',                     // 数据列名
+				                        data: {{ read_nums }}               // 数据
+				                    }],
+				                    plotOptions: {
+				                        line: {
+				                            dataLabels: {
+				                                enabled: true
+				                            }
+				                        }
+				                    },
+				                    legend: { enabled: false },
+				                    credits: { enabled: false },
+				                };
+				                // 图表初始化函数
+				                var chart = Highcharts.chart('container', options);
+
+				            </script>
+						</li>											
+					</ul>
+
+					<ul id="gtco-post-list">
+						<li class="one-third entry animate-box" data-animate-effect="fadeIn">
+							<div class="entry-desc">
+								<h3>当日最热</h3>
+								<p>这里会显示今天点击量靠前的几篇博客</p>
+
+		                        {% for hot_data in today_hot_data %}
+		                            <a href="{% url 'blog:blog_detail' hot_data.content_object.id %}">{{ hot_data.content_object.title }}</a>({{ hot_data.read_num }})<br>
+		                        {% empty %}
+		                            <p3>今天暂时没有热门博客</p3>
+		                        {% endfor %}
+							</div>
+						</li>
+						<li class="one-third entry animate-box" data-animate-effect="fadeIn">
+							<div class="entry-desc">
+								<h3>昨日最热</h3>
+								<p>这里会显示昨天点击量靠前的几篇博客</p>
+
+		                        {% for hot_data in yesterday_hot_data %}
+		                            <a href="{% url 'blog:blog_detail' hot_data.content_object.id %}">{{ hot_data.content_object.title }}</a>({{ hot_data.read_num }})<br>
+		                        {% empty %}
+		                            <p3>昨天暂时没有热门博客</p3>
+		                        {% endfor %}
+							</div>
+						</li>
+						<li class="one-third entry animate-box" data-animate-effect="fadeIn">
+							<div class="entry-desc">
+								<h3>七日最热</h3>
+								<p>这里会显示七天里点击量靠前的几篇博客</p>
+
+		                        {% for hot_blog in hot_blogs_for_7_days %}
+		                            <a href="{% url 'blog:blog_detail' hot_blog.id %}">{{ hot_blog.title }}</a>({{ hot_blog.read_num_sum }})<br>
+		                        {% empty %}
+		                            <p3>暂时没有热门博客</p3>
+		                        {% endfor %}
+							</div>
+						</li>								
+					</ul>
+
+
+				</div>
+				
+			</div>
+			
+
+
+		</div>
+	</div>
+
+
+
+
+
+	<!-- 底部友链 -->
+	<footer id="gtco-footer" role="contentinfo">
+		<div class="container">
+			<div class="row row-pb-md">
+				<div class="col-md-12">
+					<h3 class="footer-heading">更多博客</h3>
+				</div>
+				<div class="col-md-4">
+					<div class="post-entry">
+						<div class="post-img">
+							<a href="/blog/6"><img src="{% static 'img/img_10.jpg' %}" class="img-responsive" alt="Free HTML5 Bootstrap Template by GetTemplates.co"></a>
+						</div>
+						<div class="post-copy">
+							<h4><a href="/blog/6">原谅我对生命仍有敬意</a></h4>
+							<a href="#" class="post-meta"><span class="date-posted">Author:root</span></a>
+						</div>
+					</div>
+				</div>
+                <div class="col-md-4">
+					<div class="post-entry">
+						<div class="post-img">
+							<a href="/blog/4"><img src="{% static 'img/img_9.jpg' %}" class="img-responsive" alt="Free HTML5 Bootstrap Template by GetTemplates.co"></a>
+						</div>
+						<div class="post-copy">
+							<h4><a href="/blog/4">千年の羽</a></h4>
+							<a href="#" class="post-meta"><span class="date-posted">Author:root</span></a>
+						</div>
+					</div>
+				</div>
+                <div class="col-md-4">
+					<div class="post-entry">
+						<div class="post-img">
+							<a href="/blog/2"><img src="{% static 'img/img_8.jpg' %}" class="img-responsive" alt="Free HTML5 Bootstrap Template by GetTemplates.co"></a>
+						</div>
+						<div class="post-copy">
+							<h4><a href="/blog/2">F-Blog团队</a></h4>
+							<a href="#" class="post-meta"><span class="date-posted">Author:root</span></a>
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+
+			<div class="row copyright">
+				<div class="col-md-12 text-center">
+					<p>
+						<small class="block">&copy; 2018 Hot Blogs. All Rights Reserved.More Blogs <a href="#" target="_blank" title="F-Blog">F-Blog</a> - Watch from <a href="#" title="F-Blog" target="_blank">F-Blog</a></small>
+					</p>
+					<p>
+						<ul class="gtco-social-icons">
+							<li><a href="https://twitter.com/Jerry619092968"><i class="icon-twitter"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100028556839554"><i class="icon-facebook"></i></a></li>
+							<li><a href="https://www.instagram.com/jerry_fage/"><i class="icon-instagram"></i></a></li>
+							<li><a href="https://luopode.tumblr.com/"><i class="icon-tumblr"></i></a></li>
+						</ul>
+                    </p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	</div><!-- page -->
+	<!-- 回到顶部 -->
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+
+
+
+
+
+	
+	<!-- jQuery -->
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<!-- jQuery Easing -->
+	<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+	<!-- Bootstrap -->
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<!-- Waypoints -->
+	<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+	<!-- Stellar -->
+	<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+	<!-- Main -->
+	<script src="{% static 'js/main.js' %}"></script>
+	<!-- 弹出框 -->
+	<script>
+	$(function () {
+		$("[data-toggle='popover']").popover();
+	});
+	</script>
+
+	</body>
+</html>
+

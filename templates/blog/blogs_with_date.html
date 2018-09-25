@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block title %}{{ blogs_with_date }}{% endblock %}
+{% load static %}
+{% block content %}
+    <h3 style="text-align: center">{{ blogs_with_date }}</h3>
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+                <!-- 面板 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: #1abc9c">
+                        {% block blog_list_title %}
+                            博客列表（一共有{{ page_of_blogs.paginator.count }}篇博客）
+                            <a href="{% url 'blog:blog_list' %}">查看全部</a>
+                        {% endblock %}
+                    </div>
+                    <div class="panel-body">
+                        {% for blog in blogs %}
+                            <div style="border: #1abc9c 1px solid;border-radius: 7px;padding: 20px 20px;margin: 10px 10px">
+                                <a href="{% url 'blog:blog_detail' blog.id %}">
+                                    <h5>{{ blog.title }}</h5>
+                                </a>
+                                <p class="blog-info">
+                                    <span class="fui-tag"></span> <a
+                                        href="{% url 'blog:blogs_with_type' blog.blog_type_id %}">{{ blog.blog_type }}</a>&nbsp;&nbsp;
+                                    <span class="fui-time"></span> {{ blog.created_time|date:"Y-m-d" }}&nbsp;&nbsp;
+                                    阅读({{ blog.get_read_num }})
+                                </p>
+                                <p>{{ blog.content|truncatechars:120 }}</p>
+                            </div>
+                        {% empty %}
+                            <div class="blog">
+                                <h3>暂无博客，敬请期待</h3>
+                            </div>
+                        {% endfor %}
+                        <div style="background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);border-radius: 7px;padding: 20px 20px;margin: 10px 10px">
+                            <p>配色方案示范</p>
+                        </div>
+                        <!-- 分页器 -->
+                        <div class="pagination pagination-success center-block text-center">
+                            <!-- 上一页 -->
+                            {% if page_of_blogs.has_previous %}
+                                <a href="?page={{ page_of_blogs.previous_page_number }}" class="btn btn-success previous">上一页</a>
+                            {% else %}
+                                <span class="btn btn-success previous">没有上一页了</span>
+                            {% endif %}
+
+                            <!-- 遍历显示页码 -->
+                            <ul>
+                                {% for page_num in page_range %}
+                                    {% if page_num == page_of_blogs.number %}
+                                        <li class="active"><span>{{ page_num }}</span></li>
+                                    {% else %}
+                                        {% if page_num == '...' %}
+                                            <li><span>{{ page_num }}</span></li>
+                                        {% else %}
+                                            <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+
+                            <!-- 下一页 -->
+                            {% if page_of_blogs.has_next %}
+                                <a href="?page={{ page_of_blogs.next_page_number }}" class="btn btn-success next">下一页</a>
+                            {% else %}
+                                <span class="btn btn-success next">没有下一页了</span>
+                            {% endif %}
+                            <br>
+                            <p>
+                                共有{{ page_of_blogs.paginator.count }}篇博客，
+                                当前第{{ page_of_blogs.number }}页，共{{ page_of_blogs.paginator.num_pages }}页
+                            </p>
+                        </div><!-- 分页器 -->
+
+
+                    </div>
+
+                </div><!-- 面板 -->
+
+            </div>
+            <div class="hidden-xs col-sm-4 col-md-3 col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: #1abc9c">
+                        <h3 class="panel-title">博客分类</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul style="list-style-type: none;padding: 0">
+                            {% for blog_type in blog_types %}
+                                <li>
+                                    <a href="{% url 'blog:blogs_with_type' blog_type.id %}">{{ blog_type.type_name }}({{ blog_type.blog_set.count }})</a>
+                                </li>
+                            {% empty %}
+                                <li>暂无分类</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- 按月分类的面板 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: #1abc9c">
+                        <h3 class="panel-title">日期查询</h3>
+                    </div>
+                    <div class="panel-body list-group">
+                        <ul style="list-style-type: none;">
+                            {% for blog_date,blog_count in blog_dates.items %}
+                                <li>
+                                    <a href="{% url 'blog:blogs_with_date' blog_date.year blog_date.month %}">{{ blog_date|date:"Y年m月" }}({{ blog_count }})</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

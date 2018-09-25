@@ -1,0 +1,51 @@
+{% extends 'test.html' %}
+{% load staticfiles %}
+{% block title %}F-Blog 登录{% endblock %}
+{% block css %}<link href="{% static 'css/login.css' %}" rel="stylesheet"/>{% endblock %}
+
+
+{% block content %}
+<!-- 头部大图 -->
+<header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url({% static 'img/img_2.jpg' %});" data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2" style="margin-top:160px;padding:40px;background-color: rgba(255,255,255,0.8);border-radius:0">
+        <form class='form-login' action="{% url 'userapp:login' %}" method="post">
+            {% csrf_token %}
+            {% if text %}
+                <div class="alert alert-warning">{{text}}</div>
+            {% endif %}
+            <div class="form-group">
+                {{ login_form.username.label_tag }}
+                {{ login_form.username}}
+            </div>
+
+            <div class="form-group">
+                {{ login_form.password.label_tag }}
+                {{ login_form.password }}
+            </div>
+            <br>
+            <div class="form-group">
+                {{ login_form.captcha.errors }}
+                {{ login_form.captcha.label_tag }}
+                {{ login_form.captcha }}
+            </div>
+            <br>
+            <div>
+                <a  href="{% url 'userapp:register' %}"><div class="btn btn-default btn-wide pull-left">注册</div></a>
+                <button type="submit" class="btn btn-primary btn-wide pull-right">登录</button>
+            </div>          
+            <br>
+            <div style="margin-left: 40%">
+                <a class="login-link" href="{% url 'userapp:password' %}" style="text-align: center;">忘记密码</a>
+            </div>
+            
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+{% endblock %}
