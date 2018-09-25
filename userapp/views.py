@@ -83,6 +83,7 @@ def register(request):
             phone = register_form.cleaned_data['phoneNO']
             if password1 != password2:
                 text = "两次输入的密码不同！"
+                return render(request,"userapp/register.html",{"register_form":register_form,"text":text})
             else:
                 same_username = User.objects.filter(name = username)
                 if same_username:#用户名唯一
