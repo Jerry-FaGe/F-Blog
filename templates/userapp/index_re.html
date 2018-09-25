@@ -84,7 +84,7 @@
 						<p>这里会按照发布博客年月将所有博客归档到其分类页面下</p>
 
                         {% for blog_date,blog_count in blog_dates.items %}
-                                <a href="{% url 'blog:blogs_with_date' blog_date.year blog_date.month %}">{{ blog_date|date:"Y年m月" }}({{ blog_count }})</a>
+                                <a href="{% url 'blog:blogs_with_date' blog_date.year blog_date.month %}">{{ blog_date|date:"Y年m月" }}({{ blog_count }})</a><br>
                         {% endfor %}
 					</div>
 				</li>
